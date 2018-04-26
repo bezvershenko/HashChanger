@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Я.Монетки</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+</head>
+<body>
+
+<nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#">Я.Монетки</a>
+        </div>
+        <ul class="nav navbar-nav">
+            <li><a href="/">Пополнение</a></li>
+            <li class="active"><a href="/top">ТОП-10</a></li>
+            <li><a href="/wallet">Кошелек</a></li>
+            <li><a href="/send">Переводы</a></li>
+        </ul>
+    </div>
+</nav>
+<div style="margin: 3%">
+    <div class="form-group">
+        <form method="POST" action="/">
+            <label>ТОП-10</label>
+            <p style="font-size: 18px; text-align: justify;">Самые богатые пользователи Я.Монетки</p>
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>№</th>
+                    <th>Пользователь</th>
+                    <th>Монетки</th>
+                </tr>
+                </thead>
+                {% if res %}
+                <tbody>
+                {% for i, uid, m in res %}
+                <tr>
+                    <th>{{ i }}</th>
+                    <th>{{ uid }}</th>
+                    <th>{{ m }}</th>
+
+
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+            {% endif %}
+        </form>
+    </div>
+
+</div>
+
+
+</body>
+</html>
+

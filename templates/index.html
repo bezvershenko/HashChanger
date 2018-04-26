@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Я.Монетки</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+</head>
+<body>
+
+<nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#">Я.Монетки</a>
+        </div>
+        <ul class="nav navbar-nav">
+            <li class="active"><a href="/">Пополнение</a></li>
+            <li><a href="/top">ТОП-10</a></li>
+            <li><a href="/wallet">Кошелек</a></li>
+            <li><a href="/send">Переводы</a></li>
+        </ul>
+    </div>
+</nav>
+<div style="margin: 3%">
+    <div class="form-group">
+        <form method="POST" action="/">
+            <label for="comment">Пополнение</label>
+            <p style="font-size: 18px; text-align: justify;">Для того, чтобы пополнить кошелек Я.Монеток, введите в
+                текстовое поле
+                строку, хэш которой начинается с 6 нулей.
+                Строка должна начинаться с id пользователя, чей кошелек Вы пополняете. Вы можете ввести сразу несколько
+                строк (каждая следующая строка на следующей строчке).</p>
+            <textarea name="hashes" class="form-control" rows="5" id="comment" placeholder="Ваши строки..."></textarea>
+            <button type="submit" class="btn btn-primary btn-lg" style="margin-top: 5px">Пополнить</button>
+            {% if res %}
+            <h1 class="display-3">Обработаны ключи:</h1>
+            <table class="table table-bordered" style="border: 3px solid white">
+                <thead class="thead-dark">
+                <tr style="background-color: black; color: white; border: 3px solid white">
+                    <th scope="col" style="border: 3px solid white">№</th>
+                    <th scope="col" style="border: 3px solid white">Строка</th>
+                    <th scope="col" style="border: 3px solid white">Статус</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for i, h, error in res %}
+                <tr style="background-color: {% if not error %}#9ede9b{% else %}#f78d8d{% endif %}; border: 3px solid white">
+                    <th style="border: 3px solid white">{{i}}</th>
+                    <th style="border: 3px solid white">{{ h }}</th>
+                    <th style="border: 3px solid white">{% if not error %}ok{% else %}error{% endif %}</th>
+                    {% endfor %}
+
+                </tr>
+
+                </tbody>
+            </table>
+            {% endif %}
+        </form>
+    </div>
+
+</div>
+
+
+</body>
+</html>
+

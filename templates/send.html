@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Я.Монетки</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript" src="//vk.com/js/api/openapi.js?153"></script>
+
+</head>
+<body>
+
+<nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#">Я.Монетки</a>
+        </div>
+        <ul class="nav navbar-nav">
+            <li><a href="/">Пополнение</a></li>
+            <li><a href="/top">ТОП-10</a></li>
+            <li><a href="/wallet">Кошелек</a></li>
+            <li class="active"><a href="/send">Переводы</a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+            <li>
+                {% if not user_id %}
+                <a href="https://oauth.vk.com/authorize?client_id=6241408&redirect_uri=http://0.0.0.0:8080/send&scope=offline&response_type=code&v=5.73"><span
+                        class="glyphicon glyphicon-log-in"></span> Войти</a></li>
+            {% else %}
+            <li><a href="#">Пользователь: {{ user_id }}</a></li>
+            </li>
+            <li><a href="/send"><span
+                    class="glyphicon glyphicon-log-in"></span> Выйти</a></li>
+            {% endif %}
+        </ul>
+    </div>
+</nav>
+<div style="margin: 3%">
+    <div class="form-group">
+        <form method="POST" action="/send" style="margin-top: 20px; margin-bottom: 20px">
+            <label>Переводы</label>
+            <!--<p style="font-size: 18px; text-align: justify;">В разработке.</p>-->
+            <br>
+            {% if user_id %}
+            <div class="input-group">
+                <span class="input-group-addon" id="1" style="padding: 0 7px 0 6px">ID отправителя:</span>
+
+                <input type="text" name='uid' readonly class="form-control" id="id-getter"
+                       aria-describedby="basic-addon3" value="{{ user_id}}">
+            </div>
+            <br>
+            <div class="input-group">
+                <span class="input-group-addon" id="2" style="padding: 0 11px 0 10px">ID получателя:</span>
+                <input type="text" name="receiver_input" class="form-control" id="id-getter" aria-describedby="basic-addon3">
+            </div>
+            <br>
+            <div class="input-group">
+                <span class="input-group-addon" id="3">Кол-во монет:</span>
+                <input type="text" name="amount_input" class="form-control" id="coins-amount" aria-describedby="basic-addon3">
+            </div>
+
+
+            {% else %}
+
+            <div class="input-group">
+                <span class="input-group-addon" id="1" style="padding: 0 7px 0 6px">ID отправителя:</span>
+                <input type="text" name='user_id' class="form-control" id="id-getter"
+                       aria-describedby="basic-addon3" value="Вы не авторизированы" disabled>
+            </div>
+            <br>
+            <div class="input-group">
+                <span class="input-group-addon" id="2" style="padding: 0 11px 0 10px">ID получателя:</span>
+                <input type="text"  name="receiver_input" value="Вы не авторизированы" class="form-control" id="id-getter"
+                       aria-describedby="basic-addon3" disabled>
+            </div>
+            <br>
+            <div class="input-group">
+                <span class="input-group-addon" id="3">Кол-во монет:</span>
+                <input type="text" name="amount_input" value="Вы не авторизированы" class="form-control" id="coins-amount"
+                       aria-describedby="basic-addon3" disabled>
+            </div>
+            {% endif %}
+            <br>
+
+            <button type="submit" class="btn btn-primary btn-block">Отправить</button>
+            <h2>{{ msg }}</h2>
+        </form>
+    </div>
+
+</div>
+
+
+</body>
+</html>
+
