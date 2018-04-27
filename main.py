@@ -111,7 +111,7 @@ def send():
         user_id = requests.post('https://oauth.vk.com/access_token', params={
             'client_id': 6241408, 'code': code,
             'client_secret': 'QDu1LBmKCyfP5eNFKguW',
-            'redirect_uri': 'http://0.0.0.0:8080/send'
+            'redirect_uri': 'http://localhost:8080/send'
         }).json()['user_id']
     return render_template('send.html', user_id=user_id)
 
@@ -130,7 +130,6 @@ def send_money():
         uid = fields['uid']
         receiver = fields['receiver_input']
         amount = fields['amount_input']
-        print(receiver)
         try:
             n_coins = int(amount)
             r = int(receiver)
@@ -145,8 +144,8 @@ def send_money():
                                            'Перевести монетки можно только пользователям сервиса.')
 
             for i in range(n_coins):
-                db.transfer(uid, receiver)
                 db.insert_one_transfer(uid, receiver)
+                db.transfer(uid, receiver)
 
             return render_template('send.html', uid=uid, receiver=receiver, amount=amount,
                                    msg='Вы успешно перевели {} мон. на счет пользователя {}.'.format(amount, receiver))
@@ -164,10 +163,9 @@ def top():
         name = get_name_by_uid(uid)
         if name:
             res.append((i, name, amount))
-            print(res)
 
     return render_template('top.html', res=res)
 
 
 if __name__ == '__main__':
-    app.run(port=8080, host='0.0.0.0')
+    app.run(port=8080, host='localhost')

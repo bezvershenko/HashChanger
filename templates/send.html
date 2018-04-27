@@ -27,7 +27,7 @@
         <ul class="nav navbar-nav navbar-right">
             <li>
                 {% if not user_id %}
-                <a href="https://oauth.vk.com/authorize?client_id=6241408&redirect_uri=http://0.0.0.0:8080/send&scope=offline&response_type=code&v=5.73"><span
+                <a href="https://oauth.vk.com/authorize?client_id=6241408&redirect_uri=http://localhost:8080/send&scope=offline&response_type=code&v=5.73"><span
                         class="glyphicon glyphicon-log-in"></span> Войти</a></li>
             {% else %}
             <li><a href="#">Пользователь: {{ user_id }}</a></li>
